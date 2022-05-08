@@ -1,0 +1,14 @@
+C:\Users\nichm\source\repos\NichOnBank\NichOnBank\bin\Debug\netcoreapp3.1\NichOnBank.exe
+C:\Users\nichm\source\repos\NichOnBank\NichOnBank\bin\Debug\netcoreapp3.1\NichOnBank.deps.json
+C:\Users\nichm\source\repos\NichOnBank\NichOnBank\bin\Debug\netcoreapp3.1\NichOnBank.runtimeconfig.json
+C:\Users\nichm\source\repos\NichOnBank\NichOnBank\bin\Debug\netcoreapp3.1\NichOnBank.runtimeconfig.dev.json
+C:\Users\nichm\source\repos\NichOnBank\NichOnBank\bin\Debug\netcoreapp3.1\NichOnBank.dll
+C:\Users\nichm\source\repos\NichOnBank\NichOnBank\bin\Debug\netcoreapp3.1\NichOnBank.pdb
+C:\Users\nichm\source\repos\NichOnBank\NichOnBank\obj\Debug\netcoreapp3.1\NichOnBank.csproj.AssemblyReference.cache
+C:\Users\nichm\source\repos\NichOnBank\NichOnBank\obj\Debug\netcoreapp3.1\NichOnBank.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\nichm\source\repos\NichOnBank\NichOnBank\obj\Debug\netcoreapp3.1\NichOnBank.AssemblyInfoInputs.cache
+C:\Users\nichm\source\repos\NichOnBank\NichOnBank\obj\Debug\netcoreapp3.1\NichOnBank.AssemblyInfo.cs
+C:\Users\nichm\source\repos\NichOnBank\NichOnBank\obj\Debug\netcoreapp3.1\NichOnBank.csproj.CoreCompileInputs.cache
+C:\Users\nichm\source\repos\NichOnBank\NichOnBank\obj\Debug\netcoreapp3.1\NichOnBank.dll
+C:\Users\nichm\source\repos\NichOnBank\NichOnBank\obj\Debug\netcoreapp3.1\NichOnBank.pdb
+C:\Users\nichm\source\repos\NichOnBank\NichOnBank\obj\Debug\netcoreapp3.1\NichOnBank.genruntimeconfig.cache
