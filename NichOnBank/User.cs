@@ -29,7 +29,7 @@ namespace NichOnBank
             Console.WriteLine($"User ID: {this.ID}");
             Console.WriteLine($"User First Name: {this.UFName}");
             Console.WriteLine($"User Last Name: {this.ULName}");
-            Console.WriteLine($"User Date of Birth: {this.DOT.ToString("mm/dd/yyyy")}");
+            Console.WriteLine($"User Date of Birth: {this.DOT.ToString("dd-MMM-yyyy")}");
         }
     }
 }

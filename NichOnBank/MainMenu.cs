@@ -9,8 +9,22 @@ namespace NichOnBank
         public static void ShowMainMenu()
         {
             Console.Clear();
-            Console.WriteLine("|------------------  Menu ------------------|");
-            Console.WriteLine("| 1. Create Account  2. Account Details-----|");
+            Console.WriteLine("|---------------------------------  Menu --------------------------------|");
+            Console.WriteLine("| 1. Create Account  2. Account activities   3. Account Details   0. Exit|");
+        }
+
+        public static void AccountTypesMenu()
+        {
+            Console.Clear();
+            Console.WriteLine("|---------------------------------  Account Types --------------------------------|");
+            Console.WriteLine("|        1. Debit           2. Credit              3. CD              4. Loan     |");
+        }
+
+        public static void AccountActivities()
+        {
+            Console.Clear();
+            Console.WriteLine("|-------------- Account activities -------------------|");
+            Console.WriteLine("|------ 1. Deposit   2. Withdraw  3. List All Accounts   4.Close Account ---|");
         }
     }
 }

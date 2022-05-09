@@ -55,35 +55,40 @@ namespace NichOnBank
             {
                 Random r = new Random();
                 int id = r.Next(1000000, 10000000);
-                Console.WriteLine("Type of account:");
-                Console.WriteLine("1.Debit 2.Credit 3.CD 4.Loan");
-                int accType = Convert.ToInt32(Console.ReadLine());
-
-                if (accType <= 4 && (accType == 1 || accType == 3))
+                MainMenu.AccountTypesMenu();
+                Console.Write("Type #");
+                var option = Convert.ToInt32(Console.ReadLine());
+                if (option <= 4 && (option == 1 || option == 3))
                 {
                     DateTime creation = DateTime.Now;
-                    Console.WriteLine("Amount to insert into account: $");
+                    Console.Write("Amount to insert into account: $");
                     double amountInsert = Convert.ToDouble(Console.ReadLine());
 
-                    acc = new Account(id, accType, creation, amountInsert);
-                    acc.AccountDetails();
+                    acc = new Account(id, option, creation, amountInsert);
                 }
-                else if (accType <= 4 && (accType == 2 || accType == 4))
+                else if (option <= 4 && (option == 2 || option == 4))
                 {
                     DateTime creation = DateTime.Now;
                     Console.WriteLine("Amount available: \n\t1. $250  2. $500  3. $750  4. $1000");
-                    int option = Convert.ToInt32(Console.ReadLine());
-                    double amount = AmountChose(option);
+                    int opt = Convert.ToInt32(Console.ReadLine());
+                    double amount = AmountChose(opt);
+                    acc.Interest = 25;
                     Console.WriteLine("Chose time for credit/loan: 1) 1 Month 2) 1.5 Month 3) 2 Month 4) 3 Month");
+                    opt = Convert.ToInt32(Console.ReadLine());
+                    var t = MonthChose(opt);
 
-                    
+                    if (option == 2)
+                    {
+                        amount = ((acc.Interest / 100) * amount) + amount;
+                        acc.Amount = amount;
+                    }
                 }
                 else
                 {
                     Console.Clear();
                     Console.WriteLine("Invalid account type choosed.");
                     Console.Clear();
-                    CreateAccount();
+                      
                 }
 
             }
@@ -93,6 +98,18 @@ namespace NichOnBank
             }
 
             return acc;
+        }
+
+        public bool AccountAction(int option, BankAccount bankAccount)
+        {
+            var res = false;
+
+            if (option == 1)
+            {
+                
+            }
+
+            return res;
         }
 
         public double AmountChose(int option)
@@ -118,6 +135,30 @@ namespace NichOnBank
             }
 
             return amountReturn;
+        }
+
+        public double MonthChose(int option)
+        {
+            double res = 0;
+            switch (option)
+            {
+                case 1:
+                    res = 1;
+                    break;
+                case 2:
+                    res = 1.5;
+                    break;
+                case 3:
+                    res = 2;
+                    break;
+                case 4:
+                    res = 3;
+                    break;
+                default:
+                    Console.WriteLine("Invalid option.");
+                    break;
+            }
+            return res;
         }
     }
 }

@@ -8,7 +8,7 @@ namespace NichOnBank
         {
             BankAccountInteract bkai = new BankAccountInteract();
             BankAccount bka = null;
-
+            var option = 1;
 
             if (bka == null)
             {
@@ -19,27 +19,40 @@ namespace NichOnBank
 
             if (bka != null)
             {
-                MainMenu.ShowMainMenu();
-
-                try
+                while (option != 0)
                 {
-                    var option = Convert.ToInt32(Console.ReadLine());
-                    switch (option)
+                    MainMenu.ShowMainMenu();
+                    try
                     {
-                        case 1:
-                            var acc = bkai.CreateAccount();
-                            bka.Accoounts.Add(acc.ID, acc);
-                            Console.WriteLine("\n\n******* Press Enter to continue ******");
-                            break;
-                        default:
-                            Console.WriteLine("Invalid option.");
-                            break;
+                        option = Convert.ToInt32(Console.ReadLine());
+                        switch (option)
+                        {
+                            case 0:
+                                Console.WriteLine("Good bye!");
+                                break;
+                            case 1:
+                                var acc = bkai.CreateAccount();
+                                bka.Accoounts.Add(acc.ID, acc);
+                                acc.AccountDetails();
+                                break;
+                            case 2:
+                                MainMenu.AccountActivities();
+
+                                var isAble = bka.ListAccounts();
+
+                                break;
+                            default:
+                                Console.WriteLine("Invalid option.");
+                                break;
+                        }
                     }
-                    MainMenu.ShowMainMenu();   
-                }
-                catch(Exception ex)
-                {
-                    var msg = ex.Message;
+                    catch (Exception ex)
+                    {
+                        var msg = ex.Message;
+                    }
+                    Console.WriteLine("\n\n******* Press Enter to continue ******");
+                    Console.ReadLine();
+
                 }
             }
            
