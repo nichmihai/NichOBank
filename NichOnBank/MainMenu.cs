@@ -10,7 +10,7 @@ namespace NichOnBank
         {
             Console.Clear();
             Console.WriteLine("|---------------------------------  Menu --------------------------------|");
-            Console.WriteLine("| 1. Create Account  2. Account activities   3. Account Details   0. Exit|");
+            Console.WriteLine("| 1. Create Account  2. Account activities   0. Exit|");
         }
 
         public static void AccountTypesMenu()
@@ -24,7 +24,7 @@ namespace NichOnBank
         {
             Console.Clear();
             Console.WriteLine("|-------------- Account activities -------------------|");
-            Console.WriteLine("|------ 1. Deposit   2. Withdraw  3. List All Accounts   4.Close Account ---|");
+            Console.WriteLine("|------ 1. Deposit   2. Withdraw  3. List All Accounts  4. List all transactions  5.Close Account ---|");
         }
     }
 }

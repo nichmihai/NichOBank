@@ -57,6 +57,7 @@ namespace NichOnBank
                 int id = r.Next(1000000, 10000000);
                 MainMenu.AccountTypesMenu();
                 Console.Write("Type #");
+
                 var option = Convert.ToInt32(Console.ReadLine());
                 if (option <= 4 && (option == 1 || option == 3))
                 {
@@ -70,18 +71,21 @@ namespace NichOnBank
                 {
                     DateTime creation = DateTime.Now;
                     Console.WriteLine("Amount available: \n\t1. $250  2. $500  3. $750  4. $1000");
+                    Console.Write("Option #");
                     int opt = Convert.ToInt32(Console.ReadLine());
                     double amount = AmountChose(opt);
-                    acc.Interest = 25;
-                    Console.WriteLine("Chose time for credit/loan: 1) 1 Month 2) 1.5 Month 3) 2 Month 4) 3 Month");
+                    var interest = 25;
+                    Console.WriteLine("Chose time for credit/loan: 1) 1 Month 2) 2 month 3) 3 Month 4) 4 Month");
                     opt = Convert.ToInt32(Console.ReadLine());
-                    var t = MonthChose(opt);
+                    DateTime t = MonthChose(opt);
 
-                    if (option == 2)
-                    {
-                        amount = ((acc.Interest / 100) * amount) + amount;
-                        acc.Amount = amount;
+                    acc = new Account(id, option, creation, amount, t, interest);
+
+                    if (acc.Type == AccountType.Loan)
+                    { 
+                        acc.Amount += ApplyInterest(amount, interest, opt);
                     }
+                    
                 }
                 else
                 {
@@ -137,27 +141,36 @@ namespace NichOnBank
             return amountReturn;
         }
 
-        public double MonthChose(int option)
+        public DateTime MonthChose(int option)
         {
-            double res = 0;
+            DateTime res = DateTime.Now;
             switch (option)
             {
                 case 1:
-                    res = 1;
+                    res = DateTime.Now.AddMinutes(1);
                     break;
                 case 2:
-                    res = 1.5;
+                    res = DateTime.Now.AddMinutes(2);
                     break;
                 case 3:
-                    res = 2;
+                    res = DateTime.Now.AddMinutes(3);
                     break;
                 case 4:
-                    res = 3;
+                    res = DateTime.Now.AddMinutes(4);
                     break;
                 default:
                     Console.WriteLine("Invalid option.");
                     break;
             }
+            return res;
+        }
+
+        public double ApplyInterest(double amount, double interest, double time)
+        {
+            double res = 0;
+            var I = (interest / 100);
+            double inter = amount * I * time;
+            res = inter;
             return res;
         }
     }

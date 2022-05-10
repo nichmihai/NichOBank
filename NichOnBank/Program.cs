@@ -37,9 +37,22 @@ namespace NichOnBank
                                 break;
                             case 2:
                                 MainMenu.AccountActivities();
+                                var opt = Convert.ToInt32(Console.ReadLine());
+                                if (opt == 3)
+                                {
+                                    var isAble = bka.ListAccounts();
+                                }
+                                else if (opt == 1 || opt == 2)
+                                {
+                                    Transaction tr = bka.AccountWithdrawDeposit(opt);
 
-                                var isAble = bka.ListAccounts();
-
+                                    if (tr != null)
+                                        bka.Transactions.Add(tr.ID, tr);
+                                }
+                                else if (option == 4)
+                                {
+                                    
+                                }
                                 break;
                             default:
                                 Console.WriteLine("Invalid option.");

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace NichOnBank
@@ -34,11 +35,11 @@ namespace NichOnBank
                     }
                     else if (acc.Value.Type == AccountType.Credit)
                     {
-                        Console.WriteLine($"| Account ID: {acc.Key} || Type: {acc.Value.Type}  ||  Creation Time: {acc.Value.CreationTime.ToString("MM/dd/yyyy")}  || Balance: ${acc.Value.Amount} Interest: {acc.Value.Interest}|");
+                        Console.WriteLine($"| Account ID: {acc.Key} || Type: {acc.Value.Type}  ||  Creation Time: {acc.Value.CreationTime.ToString("MM/dd/yyyy")}  || Balance: ${acc.Value.Amount} Interest: {acc.Value.Interest} |");
                     }
                     else
                     {
-                        Console.WriteLine($"| Account ID: {acc.Key} || Type: {acc.Value.Type}  ||  Creation Time: {acc.Value.CreationTime.ToString("MM/dd/yyyy")}  || Balance: ${acc.Value.Amount} Expiration Date: {acc.Value.Time} |");
+                        Console.WriteLine($"| Account ID: {acc.Key} || Type: {acc.Value.Type}  ||  Creation Time: {acc.Value.CreationTime.ToString("MM/dd/yyyy")}  || Balance: ${acc.Value.Amount} Expiration Date: {acc.Value.Time.ToString("hh:mm:ss")} |");
                     }
 
                 }
@@ -50,6 +51,63 @@ namespace NichOnBank
             }
             
             return res;
+        }
+
+        public void ListAllTransactions()
+        {
+            foreach (var tr in Transactions)
+            {
+                Console.WriteLine($"Transaction ID: {tr.Key}    ||  Type: {tr.Value.Type}   || ");
+            }
+        }
+
+        public Transaction AccountWithdrawDeposit(int option)
+        {
+            Console.Clear();
+            Transaction transaction = null;
+            Random r = new Random();
+            int trId = r.Next(1, 10000000);
+            ListAccounts();
+        
+            if (option == 1)
+            {
+                try
+                {
+                    Console.WriteLine("Please choos account ID you would like to deposit:");
+                    Console.Write("ID #");
+                    int accountId = Convert.ToInt32(Console.ReadLine());
+                    Console.Write("Amount to deposit: $");
+                    double amount = Convert.ToDouble(Console.ReadLine());
+                    Account acc = Accoounts.Single(i => i.Key == accountId).Value;
+                    acc.Deposit(amount);
+                    DateTime trCreation = DateTime.Now;
+                    transaction = new Transaction(accountId, option,amount, trCreation, acc.ID, acc.Type);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Invalid amount");
+                }
+            }
+            else if (option == 2)
+            {
+                try
+                {
+                    Console.WriteLine("Please choos account ID you would like to withdraw:");
+                    Console.Write("ID #");
+                    int accountId = Convert.ToInt32(Console.ReadLine());
+                    Console.Write("Amount to deposit: $");
+                    double amount = Convert.ToDouble(Console.ReadLine());
+
+                    
+
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Invalid amount");
+                }
+            }
+
+            return transaction;
         }
     }
 }

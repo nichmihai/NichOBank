@@ -57,5 +57,22 @@ namespace NichOnBank
             Console.WriteLine($"Account Creation: {this.CreationTime}");
             Console.WriteLine($"Account Balance: ${this.Amount}");
         }
+
+        public void Deposit(double amount)
+        {
+            this.Amount += amount; 
+        }
+
+        public void Withdraw(double amount)
+        {
+            if (this.Amount > amount)
+            {
+                this.Amount -= amount;
+            }
+            else
+            {
+                Console.WriteLine("Not enough resources on account.");
+            }
+        }
     }
 }
