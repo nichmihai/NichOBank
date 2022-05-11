@@ -24,6 +24,7 @@ namespace NichOnBank
                     MainMenu.ShowMainMenu();
                     try
                     {
+                        Console.Write("Option # ");
                         option = Convert.ToInt32(Console.ReadLine());
                         switch (option)
                         {
@@ -37,6 +38,7 @@ namespace NichOnBank
                                 break;
                             case 2:
                                 MainMenu.AccountActivities();
+                                Console.Write("Option # ");
                                 var opt = Convert.ToInt32(Console.ReadLine());
                                 if (opt == 3)
                                 {
@@ -49,9 +51,9 @@ namespace NichOnBank
                                     if (tr != null)
                                         bka.Transactions.Add(tr.ID, tr);
                                 }
-                                else if (option == 4)
+                                else if (opt == 4)
                                 {
-                                    
+                                    bka.ListAllTransactions();
                                 }
                                 break;
                             default:

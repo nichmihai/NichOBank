@@ -13,6 +13,7 @@ namespace NichOnBank
         public DateTime CreationTime { get; set; }
         public int AccountId { get; set; }
         public AccountType AccountType { get; set; }
+        public double AccountBalance { get; set; }
 
 
         public Transaction()
@@ -20,7 +21,7 @@ namespace NichOnBank
 
         }
 
-        public Transaction(int tId, int tType, double tAmount, DateTime tCeation, int accId, AccountType accType)
+        public Transaction(int tId, int tType, double tAmount, DateTime tCeation, int accId, AccountType accType, double accBalance)
         {
             this.ID = tId;
             this.Type = (TransactionType)tType;
@@ -28,6 +29,7 @@ namespace NichOnBank
             this.CreationTime = tCeation;
             this.AccountId = accId;
             this.AccountType = accType;
+            this.AccountBalance = accBalance;
         }
     }
 }

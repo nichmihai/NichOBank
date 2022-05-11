@@ -55,9 +55,10 @@ namespace NichOnBank
 
         public void ListAllTransactions()
         {
+            Console.ReadLine();
             foreach (var tr in Transactions)
             {
-                Console.WriteLine($"Transaction ID: {tr.Key}    ||  Type: {tr.Value.Type}   || ");
+                Console.WriteLine($"Transaction ID: {tr.Key}    ||  Type: {tr.Value.Type}   || Amount: ${tr.Value.Amount}    || Account ID: {tr.Value.AccountId} || Account Type: {tr.Value.AccountType}    || Account Balance: ${tr.Value.AccountBalance}");
             }
         }
 
@@ -67,6 +68,7 @@ namespace NichOnBank
             Transaction transaction = null;
             Random r = new Random();
             int trId = r.Next(1, 10000000);
+            DateTime trCreation = DateTime.Now;
             ListAccounts();
         
             if (option == 1)
@@ -79,9 +81,16 @@ namespace NichOnBank
                     Console.Write("Amount to deposit: $");
                     double amount = Convert.ToDouble(Console.ReadLine());
                     Account acc = Accoounts.Single(i => i.Key == accountId).Value;
-                    acc.Deposit(amount);
-                    DateTime trCreation = DateTime.Now;
-                    transaction = new Transaction(accountId, option,amount, trCreation, acc.ID, acc.Type);
+                    if (acc != null)
+                    {
+                        acc.Deposit(amount);
+                        transaction = new Transaction(accountId, option, amount, trCreation, acc.ID, acc.Type, acc.Amount);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid account ID.");
+                    }
+                    
                 }
                 catch (Exception ex)
                 {
@@ -95,11 +104,18 @@ namespace NichOnBank
                     Console.WriteLine("Please choos account ID you would like to withdraw:");
                     Console.Write("ID #");
                     int accountId = Convert.ToInt32(Console.ReadLine());
-                    Console.Write("Amount to deposit: $");
+                    Console.Write("Amount to withdraw: $");
                     double amount = Convert.ToDouble(Console.ReadLine());
-
-                    
-
+                    Account acc = Accoounts.Single(i => i.Key == accountId).Value;
+                    if (acc != null)
+                    {
+                        acc.Withdraw(amount);
+                        transaction = new Transaction(trId, option, amount, trCreation, acc.ID, acc.Type, acc.Amount);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid account ID.");
+                    }
                 }
                 catch (Exception ex)
                 {
