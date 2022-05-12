@@ -55,10 +55,10 @@ namespace NichOnBank
 
         public void ListAllTransactions()
         {
-            Console.ReadLine();
+            Console.Clear();
             foreach (var tr in Transactions)
             {
-                Console.WriteLine($"Transaction ID: {tr.Key}    ||  Type: {tr.Value.Type}   || Amount: ${tr.Value.Amount}    || Account ID: {tr.Value.AccountId} || Account Type: {tr.Value.AccountType}    || Account Balance: ${tr.Value.AccountBalance}");
+                Console.WriteLine($"Transaction ID: {tr.Key}    ||  Type: {tr.Value.Type}   || Amount: ${tr.Value.Amount}    || Account ID: {tr.Value.AccountId} || Account Type: {tr.Value.AccountType}    || Account Balance: ${tr.Value.AccountBalance} || Transaction Time: {tr.Value.CreationTime}\n\n");
             }
         }
 
