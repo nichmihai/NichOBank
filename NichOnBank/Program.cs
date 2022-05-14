@@ -55,6 +55,10 @@ namespace NichOnBank
                                 {
                                     bka.ListAllTransactions();
                                 }
+                                else if (opt == 5)
+                                {
+                                    bka.LoanPay();
+                                }
                                 break;
                             default:
                                 Console.WriteLine("Invalid option.");

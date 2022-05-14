@@ -82,8 +82,8 @@ namespace NichOnBank
                     acc = new Account(id, option, creation, amount, t, interest);
 
                     if (acc.Type == AccountType.Loan)
-                    { 
-                        acc.Amount += ApplyInterest(amount, interest, opt);
+                    {
+                        acc.Amount = amount;
                     }
                     
                 }

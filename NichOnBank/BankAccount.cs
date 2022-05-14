@@ -33,9 +33,9 @@ namespace NichOnBank
                     {
                         Console.WriteLine($"| Account ID: {acc.Key} || Type: {acc.Value.Type}  ||  Creation Time: {acc.Value.CreationTime.ToString("MM/dd/yyyy")}  || Balance: ${acc.Value.Amount} |");
                     }
-                    else if (acc.Value.Type == AccountType.Credit)
+                    else if (acc.Value.Type == AccountType.Credit || acc.Value.Type == AccountType.Loan)
                     {
-                        Console.WriteLine($"| Account ID: {acc.Key} || Type: {acc.Value.Type}  ||  Creation Time: {acc.Value.CreationTime.ToString("MM/dd/yyyy")}  || Balance: ${acc.Value.Amount} Interest: {acc.Value.Interest} |");
+                        Console.WriteLine($"| Account ID: {acc.Key} || Type: {acc.Value.Type}  ||  Creation Time: {acc.Value.CreationTime.ToString("MM/dd/yyyy")}  || Balance: ${acc.Value.Amount} Interest: {acc.Value.Interest} Pending: {acc.Value.Pending}|");
                     }
                     else
                     {
@@ -56,10 +56,18 @@ namespace NichOnBank
         public void ListAllTransactions()
         {
             Console.Clear();
-            foreach (var tr in Transactions)
+            if (this.Transactions.Count > 0)
             {
-                Console.WriteLine($"Transaction ID: {tr.Key}    ||  Type: {tr.Value.Type}   || Amount: ${tr.Value.Amount}    || Account ID: {tr.Value.AccountId} || Account Type: {tr.Value.AccountType}    || Account Balance: ${tr.Value.AccountBalance} || Transaction Time: {tr.Value.CreationTime}\n\n");
+                foreach (var tr in Transactions)
+                {
+                    Console.WriteLine($"Transaction ID: {tr.Key}    ||  Type: {tr.Value.Type}   || Amount: ${tr.Value.Amount}    || Account ID: {tr.Value.AccountId} || Account Type: {tr.Value.AccountType}    || Account Balance: ${tr.Value.AccountBalance} || Transaction Time: {tr.Value.CreationTime}\n\n");
+                }
             }
+            else
+            {
+                Console.WriteLine("No Transactions logged yet.");
+            }
+         
         }
 
         public Transaction AccountWithdrawDeposit(int option)
@@ -70,7 +78,7 @@ namespace NichOnBank
             int trId = r.Next(1, 10000000);
             DateTime trCreation = DateTime.Now;
             ListAccounts();
-        
+
             if (option == 1)
             {
                 try
@@ -83,14 +91,22 @@ namespace NichOnBank
                     Account acc = Accoounts.Single(i => i.Key == accountId).Value;
                     if (acc != null)
                     {
-                        acc.Deposit(amount);
-                        transaction = new Transaction(accountId, option, amount, trCreation, acc.ID, acc.Type, acc.Amount);
+                        if (acc.Type != AccountType.Loan)
+                        {
+                            acc.Deposit(amount);
+                            transaction = new Transaction(accountId, option, amount, trCreation, acc.ID, acc.Type, acc.Amount);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Invalid operation for a Loan account.");
+                        }
+                        
                     }
                     else
                     {
                         Console.WriteLine("Invalid account ID.");
                     }
-                    
+
                 }
                 catch (Exception ex)
                 {
@@ -124,6 +140,37 @@ namespace NichOnBank
             }
 
             return transaction;
+        }
+
+        public void LoanPay()
+        {
+            ListAccounts();
+            Console.WriteLine("Please choos account ID you would like to withdraw:");
+            Console.Write("ID #");
+            int accountId = Convert.ToInt32(Console.ReadLine());
+            Console.Write("Amount to withdraw: $");
+            double amount= Convert.ToDouble(Console.ReadLine());
+            Account acc = Accoounts.Single(i => i.Key == accountId).Value;
+            
+            if (acc.Type == AccountType.Loan)
+            {
+                if (amount > acc.Amount || amount < 0)
+                {
+                    Console.WriteLine("Ivalid operation.");
+                }
+                else
+                {
+                    acc.Pending -= amount;
+                    if (acc.InitialBalance >= amount || (amount + acc.Amount) <= acc.InitialBalance)
+                    {
+                        acc.Amount += amount;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Trying to pay to much.");
+                    }
+                }
+            }
         }
     }
 }
