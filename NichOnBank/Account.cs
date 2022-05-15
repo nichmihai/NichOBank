@@ -101,7 +101,7 @@ namespace NichOnBank
 
         public void CDLock()
         {
-            Console.Read();
+            Console.Clear();
             bool isSet = false;
             Console.WriteLine("Chose time to lock the CD account:");
            

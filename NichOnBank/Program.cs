@@ -61,7 +61,15 @@ namespace NichOnBank
                                 }
                                 else if (opt == 6)
                                 {
-                                    
+                                    var isClosed = bka.CloseAccount();
+                                    if (isClosed)
+                                    {
+                                        Console.WriteLine("Account successfully closed");
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine("Unsuccessfull action result.");
+                                    }
                                 }
                                 break;
                             default:
