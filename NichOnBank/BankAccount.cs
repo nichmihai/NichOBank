@@ -65,7 +65,7 @@ namespace NichOnBank
             }
             else
             {
-                Console.WriteLine("No Transactions logged yet.");
+                Console.WriteLine("No Transactions logged yet.s");
             }
          
         }
@@ -91,14 +91,14 @@ namespace NichOnBank
                     Account acc = Accoounts.Single(i => i.Key == accountId).Value;
                     if (acc != null)
                     {
-                        if (acc.Type != AccountType.Loan)
+                        if (acc.Type != AccountType.Loan && acc.Type != AccountType.Credit)
                         {
                             acc.Deposit(amount);
                             transaction = new Transaction(accountId, option, amount, trCreation, acc.ID, acc.Type, acc.Amount);
                         }
                         else
                         {
-                            Console.WriteLine("Invalid operation for a Loan account.");
+                            Console.WriteLine("Invalid operation for a Loan/Credit account.");
                         }
                         
                     }
@@ -142,17 +142,50 @@ namespace NichOnBank
             return transaction;
         }
 
-        public void LoanPay()
+        public bool CloseAccount()
+        {
+            Console.Clear();
+            bool isClosed = false;
+            ListAccounts();
+            Console.WriteLine("Please choos account ID you would like to close:");
+            Console.Write("ID #");
+            int accountId = Convert.ToInt32(Console.ReadLine());
+            Account acc = Accoounts.Single(i => i.Key == accountId).Value;
+
+            if (acc != null)
+            {
+                
+                
+                if (acc.Type == AccountType.CD && (DateTime.Now < acc.Time || acc.Amount > 0))
+                {
+                    Console.WriteLine("CD account can't be removed yet. Please make sure time has passed or move Balance to another accoun.");
+                }
+                else if (acc.Amount > 0 && acc.Pending > 0)
+                {
+                    Console.WriteLine("Please make sure your balance or pending is 0 before closing your account.");
+                    isClosed = false;
+                }
+                else
+                {
+                    Accoounts.Remove(acc.ID);
+                    isClosed = true;
+                }
+            }
+
+            return isClosed;
+        }
+
+        public void LoanCreditPay()
         {
             ListAccounts();
-            Console.WriteLine("Please choos account ID you would like to withdraw:");
+            Console.WriteLine("Please choos account ID you would like to make a payment:");
             Console.Write("ID #");
             int accountId = Convert.ToInt32(Console.ReadLine());
             Console.Write("Amount to withdraw: $");
             double amount= Convert.ToDouble(Console.ReadLine());
             Account acc = Accoounts.Single(i => i.Key == accountId).Value;
             
-            if (acc.Type == AccountType.Loan)
+            if (acc.Type == AccountType.Loan || acc.Type == AccountType.Credit)
             {
                 if (amount > acc.Amount || amount < 0)
                 {

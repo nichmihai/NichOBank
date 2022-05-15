@@ -66,6 +66,12 @@ namespace NichOnBank
                     double amountInsert = Convert.ToDouble(Console.ReadLine());
 
                     acc = new Account(id, option, creation, amountInsert);
+
+                    if (acc.Type == AccountType.CD)
+                    {
+                        acc.CDLock();
+                    }
+
                 }
                 else if (option <= 4 && (option == 2 || option == 4))
                 {
@@ -84,6 +90,7 @@ namespace NichOnBank
                     if (acc.Type == AccountType.Loan)
                     {
                         acc.Amount = amount;
+                        acc.Pending += acc.SetInterest(acc.Time, acc.Amount, interest);
                     }
                     
                 }

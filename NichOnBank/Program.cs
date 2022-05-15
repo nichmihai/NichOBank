@@ -57,7 +57,11 @@ namespace NichOnBank
                                 }
                                 else if (opt == 5)
                                 {
-                                    bka.LoanPay();
+                                    bka.LoanCreditPay();
+                                }
+                                else if (opt == 6)
+                                {
+                                    
                                 }
                                 break;
                             default:

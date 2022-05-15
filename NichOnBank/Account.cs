@@ -16,6 +16,7 @@ namespace NichOnBank
         public DateTime Time { get; set; }
         public double Interest { get; set; }
         public double InitialBalance { get; set; }
+        public bool Lock { get; set; }
 
         public Account()
         {
@@ -59,11 +60,15 @@ namespace NichOnBank
             }
             Console.WriteLine($"Account Creation: {this.CreationTime}");
             Console.WriteLine($"Account Balance: ${this.Amount}");
+            if (this.Type == AccountType.CD)
+            {
+                Console.WriteLine($"CD till: ${this.Time.ToString("hh:mm:ss")}");
+            }
         }
 
         public void Deposit(double amount)
         {
-            if (this.Type != AccountType.Loan)
+            if (this.Type != AccountType.Loan && this.Type != AccountType.Credit)
             {
                 this.Amount += amount;
             }
@@ -92,6 +97,29 @@ namespace NichOnBank
             {
                 Console.WriteLine("Not enough resources on account.");
             }
+        }
+
+        public void CDLock()
+        {
+            Console.Read();
+            bool isSet = false;
+            Console.WriteLine("Chose time to lock the CD account:");
+           
+            while (!isSet)
+            {
+                Console.WriteLine("1. 1 min     2. 2 min    3. 3 min");
+                int option = Convert.ToInt32(Console.ReadLine());
+                if (option >= 1 && option <= 3)
+                {
+                    this.Time = DateTime.Now.AddMinutes(option);
+                    isSet = true;
+                }
+                else
+                {
+                    Console.WriteLine("Please chose a correct option.");
+                }
+            }
+            
         }
     }
 }
