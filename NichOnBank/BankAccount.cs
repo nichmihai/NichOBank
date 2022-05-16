@@ -175,6 +175,43 @@ namespace NichOnBank
             return isClosed;
         }
 
+        public bool Transfer()
+        {
+            bool isTransfered = false;
+            Console.Clear();
+            ListAccounts();
+            Console.WriteLine("Please chose account ID from: ");
+            Console.Write("ID #");
+            int accId1 = Convert.ToInt32(Console.ReadLine());
+            var acc1 = Accoounts.Single(a => a.Key == accId1).Value;
+           
+            Console.WriteLine("Please chose account ID to: ");
+            Console.Write("ID #");
+            int accId2 = Convert.ToInt32(Console.ReadLine());
+            var acc2 = Accoounts.Single(a => a.Key == accId2).Value;
+           
+            if (acc1 != null)
+            {
+                Console.WriteLine($"Please chose the amount you would like to withdraw from account 1: Account Balance: ${acc1.Amount}");
+                Console.Write("Amount to transfer: $");
+                double amount = Convert.ToDouble(Console.ReadLine());
+                acc1.Withdraw(amount);
+
+                if ((acc2.Type == AccountType.Credit || acc2.Type == AccountType.Loan) && acc2 != null)
+                {
+                    LoanCreditPay(amount, ref acc2);
+                    isTransfered = true;
+                }
+                else
+                {
+                    acc2.Withdraw(amount);
+                    isTransfered = true;
+                }
+            }
+
+            return isTransfered;
+        }
+
         public void LoanCreditPay()
         {
             ListAccounts();
@@ -185,6 +222,29 @@ namespace NichOnBank
             double amount= Convert.ToDouble(Console.ReadLine());
             Account acc = Accoounts.Single(i => i.Key == accountId).Value;
             
+            if (acc.Type == AccountType.Loan || acc.Type == AccountType.Credit)
+            {
+                if (amount > acc.Amount || amount < 0)
+                {
+                    Console.WriteLine("Ivalid operation.");
+                }
+                else
+                {
+                    acc.Pending -= amount;
+                    if (acc.InitialBalance >= amount || (amount + acc.Amount) <= acc.InitialBalance)
+                    {
+                        acc.Amount += amount;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Trying to pay to much.");
+                    }
+                }
+            }
+        }
+
+        public void LoanCreditPay(double amount, ref Account acc)
+        {
             if (acc.Type == AccountType.Loan || acc.Type == AccountType.Credit)
             {
                 if (amount > acc.Amount || amount < 0)

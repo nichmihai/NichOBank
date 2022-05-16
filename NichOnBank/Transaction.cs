@@ -4,7 +4,7 @@ using System.Text;
 
 namespace NichOnBank
 {
-    public enum TransactionType { Deposit = 1, Withdraw = 2}
+    public enum TransactionType { Deposit = 1, Withdraw = 2, Transfer = 3}
     class Transaction
     {
         public int ID { get; set; }
@@ -14,6 +14,11 @@ namespace NichOnBank
         public int AccountId { get; set; }
         public AccountType AccountType { get; set; }
         public double AccountBalance { get; set; }
+        public int AccountId2 { get; set; }
+        public double Amount2 { get; set; }
+        public AccountType AccountType2 { get; set; }
+        public double AmountTransfered { get; set; }
+
 
 
         public Transaction()
@@ -31,5 +36,20 @@ namespace NichOnBank
             this.AccountType = accType;
             this.AccountBalance = accBalance;
         }
+
+        public Transaction(int tId, int tType, double tAmount, DateTime tCreation, int accId, AccountType accType, double accBalance, int accId2, AccountType accType2, double accBalance2)
+        {
+            this.ID = tId;
+            this.Type = (TransactionType)tType;
+            this.AmountTransfered = tAmount;
+            this.CreationTime = tCreation;
+            this.AccountId = accId;
+            this.AccountType = accType;
+            this.AccountBalance = accBalance;
+            this.AccountId2 = accId2;
+            this.AccountType2 = accType2;
+            this.Amount2 = accBalance2;
+        }
+
     }
 }

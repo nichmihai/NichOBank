@@ -71,6 +71,11 @@ namespace NichOnBank
                                         Console.WriteLine("Unsuccessfull action result.");
                                     }
                                 }
+                                else if (opt == 7)
+                                {
+                                    bool isTransfered = bka.Transfer();
+                                    Console.WriteLine("Transaction failed.");
+                                }
                                 break;
                             default:
                                 Console.WriteLine("Invalid option.");

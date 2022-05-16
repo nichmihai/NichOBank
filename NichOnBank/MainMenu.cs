@@ -24,7 +24,7 @@ namespace NichOnBank
         {
             Console.Clear();
             Console.WriteLine("|-------------- Account activities -------------------|");
-            Console.WriteLine("|------ 1. Deposit   2. Withdraw  3. List All Accounts  4. List all transactions  5. Pay Loan 6. Close Account ---|");
+            Console.WriteLine("|------ 1. Deposit   2. Withdraw  3. List All Accounts  4. List all transactions  5. Pay Loan 6. Close Account  7. Transfer ---|");
         }
     }
 }
