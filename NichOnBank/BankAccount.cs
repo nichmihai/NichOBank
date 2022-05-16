@@ -60,7 +60,15 @@ namespace NichOnBank
             {
                 foreach (var tr in Transactions)
                 {
-                    Console.WriteLine($"Transaction ID: {tr.Key}    ||  Type: {tr.Value.Type}   || Amount: ${tr.Value.Amount}    || Account ID: {tr.Value.AccountId} || Account Type: {tr.Value.AccountType}    || Account Balance: ${tr.Value.AccountBalance} || Transaction Time: {tr.Value.CreationTime}\n\n");
+                    if (tr.Value.Type != TransactionType.Transfer)
+                    {
+                        Console.WriteLine($"Transaction ID: {tr.Key}    ||  Type: {tr.Value.Type}   || Amount: ${tr.Value.Amount}    || Account ID: {tr.Value.AccountId} || Account Type: {tr.Value.AccountType}    || Account Balance: ${tr.Value.AccountBalance} || Transaction Time: {tr.Value.CreationTime}\n\n");
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Transaction ID: {tr.Key}    ||  Type: {tr.Value.Type}   || Amount: ${tr.Value.AmountTransfered} || Account From: {tr.Value.AccountId} || Account Type: {tr.Value.AccountType} || Account Balance: ${tr.Value.AccountBalance} || Account To: {tr.Value.AccountId2} || Account Type: {tr.Value.AccountType2} || Account Balance: ${tr.Value.AccountBalance2}");
+                    }
+                    
                 }
             }
             else
@@ -160,7 +168,7 @@ namespace NichOnBank
                 {
                     Console.WriteLine("CD account can't be removed yet. Please make sure time has passed or move Balance to another accoun.");
                 }
-                else if (acc.Amount > 0 && acc.Pending > 0)
+                else if (acc.Amount > 0 || acc.Pending > 0)
                 {
                     Console.WriteLine("Please make sure your balance or pending is 0 before closing your account.");
                     isClosed = false;
@@ -175,9 +183,19 @@ namespace NichOnBank
             return isClosed;
         }
 
-        public bool Transfer()
+        public Transaction Transfer()
         {
-            bool isTransfered = false;
+            Transaction tr = null;
+            DateTime creationTime = DateTime.Now;
+            Random r = new Random();
+            int trID = r.Next(100000, 100000000);
+            if (Transactions.Count > 0)
+            {
+                if (Transactions.ContainsKey(trID))
+                {
+                    trID = r.Next(100000, 100000000);
+                }
+            }
             Console.Clear();
             ListAccounts();
             Console.WriteLine("Please chose account ID from: ");
@@ -200,16 +218,16 @@ namespace NichOnBank
                 if ((acc2.Type == AccountType.Credit || acc2.Type == AccountType.Loan) && acc2 != null)
                 {
                     LoanCreditPay(amount, ref acc2);
-                    isTransfered = true;
+                    tr = new Transaction(trID, 3, amount, creationTime, accId1, acc1.Type, acc1.Amount, accId2, acc2.Type, acc2.Amount);
                 }
-                else
+                else if(acc2 != null)
                 {
-                    acc2.Withdraw(amount);
-                    isTransfered = true;
+                    acc2.Deposit(amount);
+                    tr = new Transaction(trID, 3, amount, creationTime, accId1, acc1.Type, acc1.Amount, accId2, acc2.Type, acc2.Amount);
                 }
             }
 
-            return isTransfered;
+            return tr;
         }
 
         public void LoanCreditPay()

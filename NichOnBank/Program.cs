@@ -73,8 +73,16 @@ namespace NichOnBank
                                 }
                                 else if (opt == 7)
                                 {
-                                    bool isTransfered = bka.Transfer();
-                                    Console.WriteLine("Transaction failed.");
+                                    Transaction trans = bka.Transfer();
+
+                                    if (trans != null)
+                                    {
+                                        bka.Transactions.Add(trans.ID, trans);
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine("Transaction failed.");
+                                    }
                                 }
                                 break;
                             default:

@@ -15,7 +15,7 @@ namespace NichOnBank
         public AccountType AccountType { get; set; }
         public double AccountBalance { get; set; }
         public int AccountId2 { get; set; }
-        public double Amount2 { get; set; }
+        public double AccountBalance2 { get; set; }
         public AccountType AccountType2 { get; set; }
         public double AmountTransfered { get; set; }
 
@@ -48,7 +48,7 @@ namespace NichOnBank
             this.AccountBalance = accBalance;
             this.AccountId2 = accId2;
             this.AccountType2 = accType2;
-            this.Amount2 = accBalance2;
+            this.AccountBalance2 = accBalance2;
         }
 
     }
